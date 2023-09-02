@@ -2,7 +2,7 @@ class Solution {
 bool dfs(int node, vector<int>& vis,vector<int>& pathvis, vector<vector<int>>& graph,vector<int>&check ){
     vis[node]=1;
     pathvis[node]=1;
-    check[node]=0;
+   
     for(auto it: graph[node] ){
         if(!vis[it]){
             if(dfs(it,vis,pathvis,graph,check)==true){
