@@ -11,13 +11,16 @@ class Solution {
             
         return 0;
     }
+    if(dp[ind][target]!=-1){
+        return dp[ind][target];
+    }
     int notTaken = f(ind-1,target,arr,dp);
     
     int taken = 0;
     if(arr[ind]<=target)
         taken = f(ind-1,target-arr[ind],arr,dp);
         
-    return  (notTaken + taken);
+    return  dp[ind][target]=(notTaken + taken);
     }
 public:
     int findTargetSumWays(vector<int>& arr, int target) {
