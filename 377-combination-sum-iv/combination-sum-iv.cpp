@@ -1,25 +1,25 @@
 class Solution {
-    int f(int target,vector<int>&nums,vector<int> &dp){
+public:
+       int f(int n, vector<int>& nums, int target, vector<int>& dp) {
+
         if (target == 0) {
             return 1;
         }
         if (target < 0) {
             return 0;
         }
-        int take = 0;
-        if(dp[target]!=-1){
+        if (dp[target] != -1) {
             return dp[target];
         }
-       
-        for (int j = 0; j < nums.size();j++){
-            take += f(target-nums[j],nums,dp); 
+        int take = 0;
+        for (int j = 0; j < n; ++j) {
+            take += f(n, nums, target - nums[j], dp); 
         }
-        return dp[target]=take;
+        return dp[target] = take;
     }
-public:
+ 
     int combinationSum4(vector<int>& nums, int target) {
-        int n=nums.size();
-        vector<int> dp(target+1,-1);
-        return f(target,nums,dp);
+        vector<int>dp(target+1,-1);
+          return f(nums.size(),nums,target,dp);
     }
 };
