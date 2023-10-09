@@ -1,26 +1,39 @@
 class Solution {
+    
+private:
+    int binarySearch(vector<int>& nums, int target, bool findLeft) {
+        int low = 0;
+        int high = nums.size() - 1;
+        int index = -1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] == target) {
+                index = mid;
+                if (findLeft) {
+                    high = mid - 1;
+                } else {
+                    low = mid + 1;
+                }
+            } else if (nums[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        
+        return index;
+    }
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-         int start = -1, end = -1;
-
-        for (int i = 0; i < nums.size(); ++i) {
-            if (nums[i] == target) {
-                start = i;
-                break;
-            }
-        }
-
-        if (start == -1) {
+        int left = binarySearch(nums, target, true);
+        int right = binarySearch(nums, target, false);
+        
+        if (left <= right) {
+            return {left, right};
+        } else {
             return {-1, -1};
         }
-
-        for (int i = nums.size() - 1; i >= 0; --i) {
-            if (nums[i] == target) {
-                end = i;
-                break;
-            }
-        }
-
-        return {start, end};
     }
+
 };
