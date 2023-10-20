@@ -15,36 +15,37 @@
  *     const vector<NestedInteger> &getList() const;
  * };
  */
-
 class NestedIterator {
 public:
-stack<NestedInteger> st;
+    queue<int> que;
     NestedIterator(vector<NestedInteger> &nestedList) {
-        int n=nestedList.size();
-        for(int i=n-1;i>=0;i--){
-            st.push(nestedList[i]);
+        flatten(nestedList);
+    }
+    
+    void flatten(vector<NestedInteger>& nestedList) {
+        int n = nestedList.size();
+        for(int i = 0; i<n; i++) {
+            NestedInteger& obj = nestedList[i];
+            if(obj.isInteger())
+                que.push(obj.getInteger());
+            else {
+                flatten(obj.getList());
+            }
         }
     }
-    int next(){
-        int num=st.top().getInteger();
-        st.pop();
+    
+    int next() {
+        int num = que.front();
+        que.pop();
         return num;
     }
+    
     bool hasNext() {
-        while(!st.empty()){
-            NestedInteger curr=st.top();
-            if(curr.isInteger()){
-                return true;
-            }
-            st.pop();
-            vector<NestedInteger> &vec=curr.getList();
-            for(int i=vec.size()-1;i>=0;i--){
-                st.push(vec[i]);
-            }
-        }
-        return false;
+        return !que.empty();
     }
 };
+
+
 
 /**
  * Your NestedIterator object will be instantiated and called as such:
