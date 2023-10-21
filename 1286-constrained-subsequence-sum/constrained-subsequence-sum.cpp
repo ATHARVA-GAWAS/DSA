@@ -1,27 +1,29 @@
 class Solution {
 public:
-    typedef pair<int, int> P;
     int constrainedSubsetSum(vector<int>& nums, int k) {
         int n = nums.size();
-        
-        vector<int> t(n, 0);
-        t = nums;
-        priority_queue<P, vector<P>> pq;
-        pq.push({t[0], 0});
-        
+        deque<int> deq;
+        vector<int> t(nums);
         int maxR = t[0];
         
-        for(int i = 1; i<n; i++) {
+        for(int i = 0; i<n; i++) {
             
-            while(!pq.empty() && pq.top().second < i - k)
-                pq.pop();
+	    //first get rid of out of range indices
+            while(!deq.empty() && deq.front() < i-k)
+                deq.pop_front();
             
-            t[i] = max(t[i], nums[i] + pq.top().first);
-            pq.push({t[i], i});
+            if(!deq.empty())
+                t[i] = max(t[i], nums[i] + t[deq.front()]);
+            
+            //we maintain the deque in descending order
+	    //So that you can get the optimum value at once from front
+            while(!deq.empty() && t[i] >= t[deq.back()])
+                deq.pop_back();
+            
+            deq.push_back(i);
             
             maxR = max(maxR, t[i]);
         }
-        
         
         return maxR;
     }
