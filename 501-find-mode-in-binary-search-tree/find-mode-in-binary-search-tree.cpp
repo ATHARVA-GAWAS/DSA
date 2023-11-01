@@ -10,30 +10,33 @@
  * };
  */
 class Solution {
-    unordered_map<int,int> mp;
+    int currNum=0;
+    int currStreak=0;
+    int maxStreak=0;
     void inorder(TreeNode* root,vector<int> &ans){
         if(!root){
             return;
         }
         inorder(root->left,ans);
-        mp[root->val]++;
+        if(root->val == currNum){
+            currStreak++;
+        }else{
+            currNum=root->val;
+            currStreak=1;
+        }
+        if(currStreak>maxStreak){
+            ans={};
+            maxStreak=currStreak;
+        }
+        if(currStreak==maxStreak){
+            ans.push_back(root->val);
+        }
         inorder(root->right,ans);
     }
 public:
     vector<int> findMode(TreeNode* root) {
         vector<int> ans;
-        int maxfreq=0;
         inorder(root,ans);    //inorder gives sorted answer
-        for(auto it:mp){
-            if(it.second>maxfreq){
-                maxfreq=it.second;
-                ans={};
-                ans.push_back(it.first);
-            }
-            else if(it.second==maxfreq){
-                ans.push_back(it.first);
-            }
-        }
         return ans;
     }
 };
