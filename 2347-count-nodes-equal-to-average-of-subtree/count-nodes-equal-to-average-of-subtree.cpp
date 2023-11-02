@@ -2,32 +2,27 @@ class Solution {
 public:
     int result;
     
-    int sum(TreeNode* root, int &count) {
-        if(!root)
-            return 0;
+    pair<int,int> solve(TreeNode* root){
+        if(!root){
+            return {0,0};
+        }
+        pair<int, int> l = solve(root->left);
+        pair<int, int> r = solve(root->right);
+        int leftSum   = l.first;
+        int leftCount = l.second;
         
-        count++;
+        int rightSum   = r.first;
+        int rightCount = r.second;
+        int SUM   = leftSum + rightSum + root->val;
+        int COUNT = leftCount + rightCount + 1;
         
-        int l = sum(root->left, count);
-        int r = sum(root->right, count);
+        int avg = SUM/COUNT;
         
-        return l + r + root->val;
-    }
-    
-    void solve(TreeNode* root) {
-        if(!root)
-            return;
-        
-        int count = 0;
-        int totalSum = sum(root, count);
-        
-        if((totalSum)/count == root->val) {
+        if(avg == root->val) {
             result++;
         }
         
-        solve(root->left);
-        solve(root->right);
-        
+        return {SUM, COUNT};
     }
     
     int averageOfSubtree(TreeNode* root) {
