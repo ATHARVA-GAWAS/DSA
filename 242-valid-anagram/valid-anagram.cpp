@@ -6,13 +6,15 @@ public:
         if(n!=m){
             return false;
         }
-        int map[26]={0};
-        for(int i=0;i<n;i++){
-            map[s[i]-'a']++;
-            map[t[i]-'a']--;
+        unordered_map<char,int> mp;
+        for(auto it: s){
+            mp[it-'a']++;
         }
-        for(int i:map){
-            if(i!=0){
+        for(auto it: t){
+            mp[it-'a']--;
+        }
+        for(auto i:mp){
+            if(i.second!=0){
                 return false;
             }
         }
