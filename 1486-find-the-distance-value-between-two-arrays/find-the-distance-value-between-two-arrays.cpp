@@ -4,13 +4,10 @@ public:
         int n=arr1.size();
         int m=arr2.size();
         int cnt=0;
-        for(int i=0;i<n;i++){
-            cnt++;
-            for(int j=0;j<m;j++){
-                if(abs(arr1[i]-arr2[j])<=d){
-                    cnt--;
-                    break;
-                }
+        sort(arr2.begin(),arr2.end());
+        for(int it: arr1){
+            if(upper_bound(arr2.begin(),arr2.end(),it+d)==lower_bound(arr2.begin(),arr2.end(),it-d)){
+                cnt++;
             }
         }
         return cnt;
