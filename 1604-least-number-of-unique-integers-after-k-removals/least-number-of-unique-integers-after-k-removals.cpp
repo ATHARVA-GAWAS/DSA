@@ -6,21 +6,16 @@ public:
         for(int x:nums){
             mp[x]++;
         }
-        for(auto x:mp){
-            freq.push_back(x.second);
+        priority_queue<int,vector<int>,greater<int>> pq;
+        for(auto& it:mp){
+            pq.push(it.second);
         }
-        sort(freq.begin(),freq.end());
-        int size=freq.size();
-        int s=0;
-        while(s<size){
-            k-=freq[s];
-            if(k<0){
-                return size-s;
-            }else if(k==0){
-                return size-s-1;
+        while(k>0){
+            k=k-pq.top();
+            if(k>=0){
+                pq.pop();
             }
-            s++;
         }
-        return -1;
+        return pq.size();
     }
 };
