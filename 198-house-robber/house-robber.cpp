@@ -1,5 +1,5 @@
 class Solution {
-    int f(int ind,vector<int>& nums,vector<int> &dp){
+    int f(int ind,vector<int>&nums,vector<int> &dp){
         if(ind<0){
             return 0;
         }
@@ -9,10 +9,10 @@ class Solution {
         if(dp[ind]!=-1){
             return dp[ind];
         }
-        int take,nottake;
-        take=nums[ind]+f(ind-2,nums,dp);
-        nottake=nums[ind-1]+f(ind-3,nums,dp);
-        return dp[ind]=max(take,nottake);
+        int pick=0,notpick=0;
+        pick=nums[ind]+f(ind-2,nums,dp);
+        notpick=0+f(ind-1,nums,dp);
+        return dp[ind]=max(pick,notpick);
     }
 public:
     int rob(vector<int>& nums) {
