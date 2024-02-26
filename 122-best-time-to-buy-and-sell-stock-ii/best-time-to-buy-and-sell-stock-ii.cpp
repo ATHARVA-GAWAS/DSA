@@ -8,7 +8,7 @@ class Solution {
         }
         int profit=0;
         if(buy==1){
-             profit=max(-prices[ind]+f(ind+1,0,prices,n,dp),0+f(ind+1,1,prices,n,dp));
+           profit=max(-prices[ind]+f(ind+1,0,prices,n,dp),0+f(ind+1,1,prices,n,dp));
         }
         else{
             profit=max(prices[ind]+f(ind+1,1,prices,n,dp),0+f(ind+1,0,prices,n,dp));
