@@ -2,17 +2,14 @@ class Solution {
 public:
     int partitionString(string s) {
         int ans=0;
-        map<char,int> mp;
+        set<int> partition;
 
         for(int i=0;i<s.size();i++){
-            if(mp.find(s[i])!=mp.end()){
-                mp.clear();
+             if(partition.find(s[i]) != partition.end()){
                 ans++;
-                mp[s[i]]++;
+                partition.clear();
             }
-            else{
-                mp[s[i]]++;
-            }
+            partition.insert(s[i]);
         }
         return ans+1;
     }
