@@ -11,17 +11,30 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-       stack<int> st;
-        ListNode* curr = head;
-        while (curr) {
-            st.push(curr->val);
-            curr = curr->next;
+       // find the middle node
+        ListNode *slow = head, *fast = head;
+        while ((fast != NULL) && (fast->next != NULL)) {
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        curr = head;
-        while (curr && curr->val == st.top()) {
-            st.pop();
-            curr = curr->next;
+
+        // reverse the second half part
+        ListNode *prev = NULL, *curr = slow;
+        while (curr != NULL) {
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
         }
-        return curr == nullptr;
+
+        // compare between left and right
+        ListNode *left = head, *right = prev;
+        while ((left != NULL) && (right != NULL)) {
+            if (left->val != right->val) return false;
+            left = left->next;
+            right = right->next;
+        }
+        
+        return true;
     }
 };
