@@ -1,6 +1,6 @@
 class Solution {
 public:
-   int maxProduct(vector<int>& nums){
+    int maxProduct(vector<int>& nums) {
        int prod=1;
        int maxi=INT_MIN;
        int n=nums.size();
@@ -19,7 +19,6 @@ public:
           if(prod==0)
            prod=1;
         }
-        return maxi;
-   }
-   
+       return maxi;
+    }
 };
