@@ -18,16 +18,16 @@ public:
         {
             auto it =  q.front();
             q.pop();
-            int stops = it.first;
+            int stops = it.first;   
             int node = it.second.first;
             int cost = it.second.second;
 
             if(stops>k) break;
 
-            for(auto it : adj[node])
+            for(auto it1 : adj[node])
             {
-                int adjNode = it.first;
-                int edW = it.second;
+                int adjNode = it1.first;
+                int edW = it1.second;
 
                 if(cost + edW < dist[adjNode] && stops <= k)
                 {
