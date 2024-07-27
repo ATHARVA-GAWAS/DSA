@@ -3,21 +3,14 @@ public:
     int numberOfSubstrings(string s) {
         int n = s.size();
         int i = 0, j = 0, ans = 0;
-        unordered_map<char, int> m;
+        int lastseen[3]={-1,-1,-1};
 
-        while (j < n) {
-            m[s[j]]++; 
-
-            while (m['a'] > 0 && m['b'] > 0 && m['c'] > 0) {
-              
-                ans += (n - j);
-
-                m[s[i]]--; 
-                i++;
+        for(int i=0;i<n;i++){
+            lastseen[s[i]-'a']=i;
+            if(lastseen[0]!=-1 && lastseen[1]!=-1 && lastseen[2]!=-1){
+                ans=ans+(1+min(lastseen[0],min(lastseen[1],lastseen[2])));
             }
-            j++; 
         }
-
         return ans;
     }
 };
