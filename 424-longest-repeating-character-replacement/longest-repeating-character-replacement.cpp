@@ -6,18 +6,16 @@ public:
         while(r<n){
             mp[s[r]-'A']++;
             maxf=max(maxf,mp[s[r]-'A']);
-            while((r-l+1)-maxf >k){
-                mp[s[l]-'A']--;
-                maxf=0;
 
-                for(int i=0;i<26;i++){
-                    maxf=max(maxf,mp[i]);
-                }
+            if((r-l+1)-maxf >k){
+                mp[s[l]-'A']--;
                 l++;
             }
+
             if((r-l+1)-maxf <=k){
                 maxlen=max(maxlen,r-l+1);
             }
+
             r++;
         }
         return maxlen;
