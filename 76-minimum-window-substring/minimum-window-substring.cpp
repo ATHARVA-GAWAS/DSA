@@ -1,40 +1,40 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        int n = s.length();
-        map<char, int> mp;
         
-        for(char &ch : t) {
-            mp[ch]++;
+        int n = t.size();
+        int m = s.size();
+        int r=0,l=0,minl=INT_MAX;
+        int count = 0;
+        int sindex = -1;
+        int hash[256] ={0};
+
+        for(int i=0;i<n;i++){
+            hash[t[i]]++;
         }
-        
-        int requiredCount = t.length();
-        int i = 0, j  = 0;
-        int minStart  = 0;
-        int minWindow = INT_MAX;
-        while(j < n) {
-            char ch_j = s[j];
-            if(mp[ch_j] > 0)
-                requiredCount--;
-            
-            mp[ch_j]--;
-            
-            while(requiredCount == 0) { //try to shrink the window
-                if(minWindow > j-i+1) {
-                    minWindow = j-i+1;
-                    minStart  = i;
-                }
-                
-                char ch_i = s[i];
-                mp[ch_i]++;
-                if(mp[ch_i] > 0)
-                    requiredCount++;
-                i++;
+
+        while(r<m){
+            hash[s[r]]--;
+
+            if(hash[s[r]]>=0){
+                count = count +1;
             }
-            
-            j++; //Don't ever forget this :-)
+
+            while(count == n){
+                if(r-l+1 < minl){
+                    minl = r-l+1;
+                    sindex = l;
+                }
+                hash[s[l]]++;
+
+                if(hash[s[l]]>0){
+                    count--;
+                }
+                l++;
+            }
+            r++;
         }
         
-        return minWindow == INT_MAX ? "" : s.substr(minStart, minWindow);
+       return sindex==-1?"":s.substr(sindex,minl);
     }
 };
