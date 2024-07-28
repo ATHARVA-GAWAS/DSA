@@ -1,31 +1,26 @@
 class Solution {
 public:
-    int findAtMostK(int n, int k, vector<int>&nums){
-        int ans = 0;
-        int left = 0, right = 0;
-        unordered_map<int, int>mp;
-        while(right<n){
-            if(mp.find(nums[right])==mp.end()){
-                mp[nums[right]] = 1;
-            }
-            else{
-                mp[nums[right]]++;
-            }
+    int f(int n, int k, vector<int>&nums){
+        int cnt=0,l=0,r=0;
+        unordered_map<int,int> mp;
 
-            while(mp.size()> k && left<=right){
-                mp[nums[left]]--;
-                if(mp[nums[left]]==0){
-                    mp.erase(nums[left]);
+        while(r<n){
+            mp[nums[r]]++;
+            while(mp.size()>k){
+                mp[nums[l]]--;
+
+                if(mp[nums[l]]==0){
+                    mp.erase(nums[l]);
                 }
-                left++;
+                l++;
             }
-            ans += right-left+1;
-            right++;
+            cnt=cnt+(r-l+1);
+            r++;
         }
-        return ans;
+        return cnt;
     }
     int subarraysWithKDistinct(vector<int>& nums, int k) {
         int n = nums.size();
-        return findAtMostK(n, k, nums) - findAtMostK(n, k-1, nums);
+        return f(n, k, nums) - f(n, k-1, nums);
     }
 };
