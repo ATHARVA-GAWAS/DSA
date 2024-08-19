@@ -1,24 +1,37 @@
 class Solution {
 public:
-    bool isposs(vector<int>& a, int h, int mid) {
-        int hour = 0;
-        for (int i = 0; i < a.size(); i++) {
-            hour += (a[i] + mid - 1) / mid; 
-            if (hour > h)  
-                return false;
-        }
-        return hour <= h;
-    }
+    
+    bool canEatAll(vector<int>& piles, int givenHour, int h) {
+        int actualHour = 0;
+        
+        for(int &x : piles) {
+            actualHour += x/givenHour;
+            
+            if(x%givenHour != 0){
+                actualHour++;
+            }
 
-    int minEatingSpeed(vector<int>& piles, int H) {
-        int l = 1, h = 1e9;
-        while (l <= h) {
-            int mid = l + (h - l) / 2;
-            if (isposs(piles, H, mid))
-                h = mid - 1;
-            else
-                l = mid + 1;
         }
+        
+        return actualHour <= h;
+    }
+    
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int n = piles.size();
+        
+        int l = 1, r = *max_element(piles.begin(), piles.end());
+        
+        while(l < r) {
+            int mid = (l + r)/2;
+            
+            if(canEatAll(piles, mid, h)) {
+                r = mid;
+            } 
+            else {
+                l = mid+1;
+            }
+        }
+        
         return l;
     }
 };
