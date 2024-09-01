@@ -9,13 +9,13 @@ public:
             return {};
         }
 
-        int ind=0;
+        
 
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                ans[i][j]=original[ind];
-                ind++;
-            }
+        for(int i=0;i<len;i++){
+            int row=i/n;
+            int col=i%n;
+
+            ans[row][col]=original[i];
         }
 
         return ans;
