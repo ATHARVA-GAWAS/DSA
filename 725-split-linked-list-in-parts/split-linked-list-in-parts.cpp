@@ -1,39 +1,51 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     vector<ListNode*> splitListToParts(ListNode* head, int k) {
-        int length = 0;
-        ListNode* curr = head;
-        while (curr != nullptr) {
-            length++;
-            curr = curr->next;
-        }
-        
-        int base_size = length / k;
-        int extra_size = length % k;
-        
-        vector<ListNode*> ans;
-        curr = head;
-        
-        for (int i = 0; i < k; i++) {
-            ListNode* part_head = curr;
-            int part_size;
+        int n=0;
 
-            if (i < extra_size)      
-                part_size = base_size + 1;
-            else                
-                part_size = base_size;
-                        
-            for (int j = 0; j < part_size - 1; j++) {
-                if (curr != NULL) curr = curr->next;
-            }
-            
-            if (curr != NULL) {
-                ListNode* next_node = curr->next;
-                curr->next = NULL; 
-                curr = next_node;
-            }
-            ans.push_back(part_head);
+        ListNode *cur=head;
+
+        while(cur){
+            n++;
+            cur=cur->next;
         }
+
+        vector<ListNode*> ans(k,NULL);
+        int sizze=n/k;
+        int rem=n%k;
+
+        cur=head;
+
+        for(int i=0;i<k;i++){
+            if(!cur){
+                break;
+            }
+            ans[i]=cur;
+            int part_size=sizze;
+            if(rem>0){
+                part_size++;
+                rem--;
+            }
+
+            for(int j=1;j<part_size;j++){
+                cur=cur->next;
+            }
+
+            ListNode* nexxt=cur->next;
+            cur->next=NULL;
+            cur=nexxt;
+        }
+
         return ans;
     }
 };
