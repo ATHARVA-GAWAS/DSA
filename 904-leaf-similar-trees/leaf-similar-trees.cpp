@@ -10,21 +10,26 @@
  * };
  */
 class Solution {
-    void inorder(TreeNode* root,vector<int> &res){
-        if(root==NULL){
+    void inorder(TreeNode* root,vector<int> &ans){
+        
+        if(!root){
+            return ;
+        }
+        if(root->left==nullptr && root->right==nullptr){
+            ans.push_back(root->val);
             return;
         }
-        inorder(root->left,res);
-        if(root->left==NULL && root->right==NULL){
-            res.push_back(root->val);
-        }
-        inorder(root->right,res);
+        inorder(root->left,ans);
+        
+        inorder(root->right,ans);
     }
 public:
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
-        vector<int> a,b;
-        inorder(root1,a);
-        inorder(root2,b);
-        return a==b;
+        vector<int> ans1,ans2;
+        
+        inorder(root1,ans1);
+        inorder(root2,ans2);
+        
+        return ans1==ans2;
     }
 };
