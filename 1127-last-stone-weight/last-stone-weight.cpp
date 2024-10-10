@@ -8,21 +8,26 @@ public:
             pq.push(stones[i]);
         }
 
-        while(pq.size()>1){
-            int first = pq.top();
-            pq.pop();
-            int second = pq.top();
-            pq.pop();
-            int x =first-second;
-            if (x > 0) {
-                pq.push(x);
-            }
-        }
+       while(pq.size()>1){
+        int a=pq.top();
+        pq.pop();
+        int b=pq.top();
+        pq.pop();
 
-        if(!pq.empty()){
-            int ans=pq.top();
-            return ans;
+        int x=a-b;
+        if(x>0){
+            pq.push(x);
         }
+       }
+
+       int ans;
+
+       while(!pq.empty()){
+        ans=pq.top();
+        pq.pop();
+
+        return ans;
+       }
         return 0;
     }
 };
