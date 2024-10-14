@@ -2,6 +2,8 @@ class Solution {
 public:
     long long maxKelements(vector<int>& nums, int k) {
         int n=nums.size();
+        
+        long long ans=0;
 
         priority_queue<int> pq;
 
@@ -9,15 +11,19 @@ public:
             pq.push(it);
         }
 
-        long long ans=0;
+        int x=k;
 
-        while(k--){
-            long long temp=pq.top();
-            ans+=temp;
+        while(x--){
+            long long y=pq.top();
+
+            ans+=y;
+
             pq.pop();
 
-            pq.push(ceil(double(temp/3.0)));
-        }        
+            y=ceil(double(y/3.0));
+
+            pq.push(y);
+        }
 
         return ans;
     }
