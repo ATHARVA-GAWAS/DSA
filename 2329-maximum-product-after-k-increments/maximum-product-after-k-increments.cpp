@@ -16,13 +16,13 @@ public:
             pq.push(x);
         }
 
-        long long ans=1;
+        long long prod=1;
 
         while(!pq.empty()){
-            ans = (ans * pq.top()) % mod;;
+            prod=(prod*pq.top())%mod;
             pq.pop();
         }
-        
-        return ans%mod;
+
+        return prod%mod;
     }
 };
