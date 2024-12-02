@@ -1,18 +1,15 @@
 class Solution {
 public:
     int isPrefixOfWord(string sentence, string searchWord) {
-        istringstream stream(sentence);
-        string word;
-        int index = 0;
+        stringstream s(sentence);
+        string t;
         
-        while (stream >> word) {
-            index++; // Increment index for each word
-            
-            if (word.find(searchWord) == 0) { // Check if searchWord is a prefix
-                return index; // Return the 1-based index
+        for(int i = 1; s >> t; i++){
+            if(t.substr(0, searchWord.length()) == searchWord){
+                return i;
             }
         }
-        
+
         return -1;
     }
 };
