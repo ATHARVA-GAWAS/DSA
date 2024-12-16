@@ -17,7 +17,8 @@ public:
             pq.push({val, idx});
         }
 
-        vector<int>ans(n);
+        vector<int> ans(n);
+
         while(!pq.empty())
         {
             auto top = pq.top(); pq.pop();
