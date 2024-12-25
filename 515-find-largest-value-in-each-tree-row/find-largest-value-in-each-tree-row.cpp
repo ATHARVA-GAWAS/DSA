@@ -12,36 +12,41 @@
 class Solution {
 public:
     vector<int> largestValues(TreeNode* root) {
-        if(!root)
+
+        if(!root){
             return {};
-        
-        queue<TreeNode*> que;
-        que.push(root);
-        
-        vector<int> result;
-        
-        while(!que.empty()) {
-            
-            int n = que.size();
-            int maxEl = INT_MIN;
-            while(n--) {
-                
-                TreeNode* node = que.front();
-                que.pop();
-                
-                maxEl = max(maxEl, node->val);
-                
-                if(node->left)
-                    que.push(node->left);
-                
-                if(node->right)
-                    que.push(node->right);
-            }
-            
-            result.push_back(maxEl);
-            
         }
+
         
-        return result;
+        queue<TreeNode*> q;
+
+        vector<int> ans;
+
+        q.push(root);
+
+        while(!q.empty()){
+            int n=q.size();
+
+            int maxi=INT_MIN;
+
+            for(int i=0;i<n;i++){
+                TreeNode* node=q.front();
+                q.pop();
+
+                maxi=max(maxi,node->val);
+
+                if(node->left){
+                    q.push(node->left);
+                }
+
+                if(node->right){
+                    q.push(node->right);
+                }
+            }
+
+            ans.push_back(maxi);
+        }
+
+        return ans;
     }
 };
