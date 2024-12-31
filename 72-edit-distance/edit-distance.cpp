@@ -10,8 +10,9 @@ class Solution {
         if(dp[ind1][ind2]!=-1){
             return dp[ind1][ind2];
         }
+
         if(s1[ind1]==s2[ind2]){
-            return dp[ind1][ind2]=f(ind1-1,ind2-1,s1,s2,dp);
+            return f(ind1-1,ind2-1,s1,s2,dp);
         }
 
         int a=1+f(ind1,ind2-1,s1,s2,dp);
