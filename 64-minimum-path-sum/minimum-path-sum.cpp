@@ -4,19 +4,19 @@ public:
         int n=grid.size();
         int m=grid[0].size();
 
-        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        vector<int> prev(n+1,0),cur(m+1,0);
 
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(i==0 && j==0){
-                    dp[i][j]=grid[i][j];
+                    cur[j]=grid[i][j];
                 }
 
                 else{
                     int up = grid[i][j];
 
                     if(i>0){
-                        up += dp[i-1][j];
+                        up += prev[j];
                     } 
                     else{
                         up += 1e9;
@@ -24,18 +24,19 @@ public:
                 
                     int left = grid[i][j];
                     if(j>0){
-                        left+=dp[i][j-1];
+                        left+=cur[j-1];
                     } 
                     else{
                         left += 1e9;
                     } 
 
-                    dp[i][j]=min(left,up);
+                    cur[j]=min(left,up);
                 }
 
             }
+            prev=cur;
         }
         
-        return dp[n-1][m-1];
+        return prev[m-1];
     }
 };
