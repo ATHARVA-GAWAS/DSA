@@ -8,8 +8,11 @@ public:
         vector<int> adj[n];
 
         for(auto it: prerequisites){
-            adj[it[1]].push_back(it[0]);
-            indegree[it[0]]++;
+            int u=it[0];
+            int v=it[1];
+
+            adj[v].push_back(u);
+            indegree[u]++;
         }
 
         queue<int> q;
@@ -27,10 +30,11 @@ public:
             ans.push_back(node);
             q.pop();
 
-            for(auto it:adj[node]){
-                indegree[it]--;
-                if(indegree[it]==0){
-                    q.push(it);
+            for(auto neighbour:adj[node]){
+                indegree[neighbour]--;
+
+                if(indegree[neighbour]==0){
+                    q.push(neighbour);
                 }
             }
         }
