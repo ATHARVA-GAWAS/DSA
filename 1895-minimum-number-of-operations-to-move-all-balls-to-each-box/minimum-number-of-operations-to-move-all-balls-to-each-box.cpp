@@ -1,30 +1,39 @@
 class Solution {
 public:
     vector<int> minOperations(string boxes) {
-        int n=boxes.size();
+        int n = boxes.size();
 
-        vector<int> arr;
+        vector<int> answer(n, 0);
 
-        for(auto it: boxes){
-            arr.push_back(it-'0');
+        int cumValue    = 0;
+        int cumValueSum = 0;
+
+        //Find moves for all left balls to index i
+        //O(n)
+        for(int i = 0; i < n; i++) {
+            answer[i] = cumValueSum;
+            
+            cumValue += boxes[i] == '0' ? 0 : 1;
+            
+            cumValueSum += cumValue;
         }
 
-        unordered_set<int> st;
+        cumValue    = 0;
+        cumValueSum = 0;
 
-        for(int i=0;i<n;i++){
-            if(arr[i]==1){
-                st.insert(i);
-            }
-        }        
-
-        vector<int> res(n,0);
-
-        for(int i=0;i<n;i++){
-            for(auto it:st){
-                res[i]+=abs(i-it);
-            }
+        //Find moves for all right balls to index i
+        //O(n)
+        
+        for(int i = n-1; i >= 0; i--) {
+            answer[i] += cumValueSum;
+            
+            cumValue += boxes[i] == '0' ? 0 : 1;
+            
+            cumValueSum += cumValue;
         }
 
-        return res;
+        //O(n+n) ~ O(n)
+        return answer;
+
     }
 };
