@@ -6,7 +6,7 @@ public:
         int cnt=0;
 
         for (auto& word : words) {
-            if (word.size() >= pref_size && word.compare(0, pref_size, pref) == 0) {
+            if (word.size() >= pref_size && word.starts_with(pref)) {
                 cnt++;
             }
         }
