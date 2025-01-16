@@ -1,30 +1,23 @@
 class Solution {
 public:
     int xorAllNums(vector<int>& nums1, vector<int>& nums2) {
-        int n=nums1.size();
-        int m=nums2.size();
+        int m = nums1.size();
+        int n = nums2.size();
 
-        unordered_map<int,long long> mp;
+        int XOR = 0;
 
-        for(auto it:nums1){ //occurences
-            mp[it]+=m;
-        }
-
-        for(auto it:nums2){ //occurences
-            mp[it]+=n;
-        }
-
-        int ans=0;
-
-        for(auto it:mp){
-            int num=it.first;
-            long long freq=it.second;
-
-            if(freq%2!=0){  //since the even frequency numbers would be 0 when xor'ed with each other
-                ans=ans^num;
+        if(m % 2 != 0) { //m is of odd length
+            for(int &num : nums2) {
+                XOR ^= num;
             }
         }
 
-        return ans;
+        if(n % 2 != 0) { //n is of odd length
+            for(int &num : nums1) {
+                XOR ^= num;
+            }
+        }
+
+        return XOR;
     }
 };
