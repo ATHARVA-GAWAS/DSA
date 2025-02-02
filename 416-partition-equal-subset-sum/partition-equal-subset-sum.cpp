@@ -23,6 +23,7 @@ class Solution {
         if(nums[ind]<=target){
             taken=f(ind-1,target-nums[ind],nums,dp);
         }
+
         return dp[ind][target]=taken||nottaken;
     }
 public:
@@ -35,11 +36,11 @@ public:
             totsum+=it;
         }
 
-        if(totsum%2==1){
+        if(totsum%2!=0){
             return false;
         }
 
-        vector<vector<int>> dp(n+1,vector<int>(totsum+1,-1));
+        vector<vector<int>> dp(n+1,vector<int>(totsum,-1));
 
         return f(n-1,totsum/2,nums,dp);
     }
