@@ -10,6 +10,7 @@
  * };
  */
 class FindElements {
+    
     unordered_set<int> st;
 
     void dfs(TreeNode* root, int x){
@@ -23,13 +24,14 @@ class FindElements {
         dfs(root->left, 2*x+1);
         dfs(root->right, 2*x+2);
     }
+
 public:
-    FindElements(TreeNode* root) {
+    FindElements(TreeNode* root){
         st.clear();
         dfs(root,0);
     }
     
-    bool find(int target) {
+    bool find(int target){
         return st.count(target);
     }
 };
