@@ -3,7 +3,9 @@ public:
     string mergeAlternately(string word1, string word2) {
         int n=word1.size();
         int m=word2.size();
+
         string ans="";
+
         if(n<=m){
            for(int i=0;i<m;i++){
                if(i<n){
@@ -26,7 +28,7 @@ public:
                }
            }
         }
+
         return ans;
-        
     }
 };
