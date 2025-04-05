@@ -1,11 +1,16 @@
 class Solution {
 public:
 int n;
-    int f(int i, int xorsum, vector<int>& nums){
-        if (i==n) return xorsum;
-        int x=nums[i];
-        int take=f(i+1, xorsum^x, nums);
-        int notake=f(i+1, xorsum, nums);
+    int f(int ind, int xorsum, vector<int>& nums){
+        if (ind==n){
+            return xorsum;
+        } 
+        int x=nums[ind];
+
+        int take=f(ind+1, xorsum^x, nums);
+
+        int notake=f(ind+1, xorsum, nums);
+
         return take+notake;
     }
     int subsetXORSum(vector<int>& nums) {
