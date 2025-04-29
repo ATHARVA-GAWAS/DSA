@@ -1,19 +1,26 @@
 class Solution {
 public:
     long long countSubarrays(vector<int>& nums, int k) {
-        int left = 0, right = 0, size = nums.size();
+        int l=0, r=0, size = nums.size();
+
         int maxEle = *max_element(nums.begin(), nums.end());
+
         int maxEleCnt = 0;
+
         long long subArrCnt = 0;
-        while(right < size){
-           if(nums[right++] == maxEle){
+
+        while(r<size){
+           if(nums[r++] == maxEle){
                maxEleCnt++;
            }
            while(maxEleCnt == k){
-              if(nums[left++] == maxEle)maxEleCnt--;
+              if(nums[l++] == maxEle){
+                maxEleCnt--;
+              }
            }
-           subArrCnt += left;
+           subArrCnt += l;
         }
+
         return subArrCnt;
     }
 };
