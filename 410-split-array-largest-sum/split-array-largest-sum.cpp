@@ -7,6 +7,7 @@ class Solution {
 
         for(int i=0;i<n;i++){
             sum+=nums[i];
+            
             if(sum>mid){
                 subarrays++;
                 sum=nums[i];
@@ -23,13 +24,10 @@ public:
 
         int r=accumulate(nums.begin(),nums.end(),0);
 
-        int ans=r;
-
         while(l<=r){
             int mid=l+(r-l)/2;
 
             if(cansplit(nums,mid,k)){
-                ans=mid;
                 r=mid-1;
             }
             else{
@@ -37,6 +35,6 @@ public:
             }
         }
 
-        return ans;
+        return l;
     }
 };
