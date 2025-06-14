@@ -7,14 +7,14 @@ class Solution {
 
         for(int i=0;i<n;i++){
             sum+=nums[i];
-            
+
             if(sum>mid){
                 subarrays++;
                 sum=nums[i];
             }
         }
 
-        return (subarrays+1)<=k;
+        return subarrays+1 <=k;
     }
 public:
     int splitArray(vector<int>& nums, int k) {
