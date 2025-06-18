@@ -3,9 +3,9 @@ public:
     vector<vector<int>> divideArray(vector<int>& nums, int k) {
         int n=nums.size();
 
-        sort(nums.begin(),nums.end());
-
         vector<vector<int>> ans(n/3,vector<int>(3));
+
+        sort(nums.begin(),nums.end());
 
         int ind=0;
 
