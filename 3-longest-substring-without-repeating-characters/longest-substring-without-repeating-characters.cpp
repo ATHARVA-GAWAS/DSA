@@ -7,20 +7,23 @@ public:
 
         int len=0,maxlen=0;
 
-        unordered_set<char> st;
+        unordered_map<char,int> mp;
 
         while(r<n){
-            while(l<r && st.find(s[r])!=st.end()){
-                st.erase(s[l]);
+            while(mp.find(s[r])!=mp.end()){
+                mp[s[l]]--;
+                mp.erase(s[l]);
                 l++;
             }
+            mp[s[r]]++;
 
-            st.insert(s[r]);
             len=r-l+1;
 
             maxlen=max(maxlen,len);
+
             r++;
         }
+
 
         return maxlen;
     }
