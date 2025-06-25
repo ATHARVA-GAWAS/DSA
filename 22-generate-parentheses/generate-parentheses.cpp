@@ -7,11 +7,10 @@ class Solution {
         if(open>0){
             f(open-1,close,temp+"(",ans);
         }
+
         if(close>open){
             f(open,close-1,temp+")",ans);
-
         }
-
     }
 public:
     vector<string> generateParenthesis(int n) {
