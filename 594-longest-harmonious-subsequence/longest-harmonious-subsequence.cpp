@@ -3,25 +3,18 @@ public:
     int findLHS(vector<int>& nums) {
         int n=nums.size();
 
-        sort(nums.begin(),nums.end());
+        unordered_map<int,int> freq;
 
-        int l=0,r=0;
+        for(auto it:nums){
+            freq[it]++;
+        }
 
         int maxlen=0;
 
-        while(r<n){
-            while(nums[r]-nums[l]>1){
-                l++;
+        for(auto it:freq){
+            if(freq.count(it.first+1)){
+                maxlen=max(maxlen,it.second+freq[it.first+1]);
             }
-
-            int len=r-l+1;
-
-            // Only consider windows where the difference is exactly 1
-            if (nums[r] - nums[l] == 1) {
-                maxlen = max(maxlen,len);
-            }
-
-            r++;
         }
 
         return maxlen;
