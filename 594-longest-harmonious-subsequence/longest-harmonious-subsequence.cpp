@@ -3,18 +3,24 @@ public:
     int findLHS(vector<int>& nums) {
         int n=nums.size();
 
-        unordered_map<int,int> freq;
+        sort(nums.begin(),nums.end());
 
-        for(auto it:nums){
-            freq[it]++;
-        }
+        int l=0,r=0;
 
         int maxlen=0;
 
-        for(auto it:freq){
-            if(freq.count(it.first+1)){
-                maxlen=max(maxlen,it.second+freq[it.first+1]);
+        while(r<n){
+            while(nums[r]-nums[l]>1){
+                l++;
             }
+
+            int len=r-l+1;
+
+            if(nums[r]-nums[l]==1){
+                maxlen=max(maxlen,len);
+            }
+
+            r++;
         }
 
         return maxlen;
