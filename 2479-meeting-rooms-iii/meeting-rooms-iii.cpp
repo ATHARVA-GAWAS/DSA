@@ -1,42 +1,47 @@
 class Solution {
 public:
     int mostBooked(int n, vector<vector<int>>& meetings) {
-        int len=size(meetings);
-        vector<long long>endtime(n,0);
-        vector<int>count(n,0);
-        sort(begin(meetings),end(meetings));
-        for(int i=0;i<len;i++){
-            int start=meetings[i][0];
-            int time=meetings[i][1]-start;
-            bool isdelay = true;
-            long long mindelay=LLONG_MAX;
-            int indx;
-            for(int j=0;j<n;j++){
-                if(endtime[j]<=start){
-                    endtime[j]=meetings[i][1];
-                    count[j]++;
-                    isdelay = false;
+
+        vector<long long> busy(n, 0); // Room end times
+        vector<int> count(n, 0);      // Booking counts per room
+
+        sort(meetings.begin(), meetings.end());
+
+        for (auto& meeting : meetings) {
+            int start = meeting[0], end = meeting[1];
+            long long earliest = LLONG_MAX;
+            
+            int roomIndex = -1;
+            bool assigned = false;
+
+            for (int i = 0; i < n; ++i) {
+                if (busy[i] < earliest) {
+                    earliest = busy[i];
+                    roomIndex = i;
+                }
+                if (busy[i] <= start) {
+                    busy[i] = end;
+                    count[i]++;
+                    assigned = true;
                     break;
-                }else{
-                    if(endtime[j]<mindelay){
-                        mindelay=endtime[j];
-                        indx=j;
-                    }
                 }
             }
-            if(isdelay){
-                endtime[indx]+=time;
-                count[indx]++;
+
+            if (!assigned) {
+                busy[roomIndex] += (end - start);
+                count[roomIndex]++;
             }
         }
-        
-        int ans=0;
-        for(int i=0;i<n;i++){
-            cout<<count[i]<<" ";
-            if(count[i]>count[ans]){
-                ans =i;
+
+        int res = 0, maxCount = 0;
+
+        for (int i = 0; i < n; ++i) {
+            if (count[i] > maxCount) {
+                maxCount = count[i];
+                res = i;
             }
         }
-        return ans;
+
+        return res;
     }
 };
