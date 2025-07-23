@@ -1,59 +1,54 @@
-class Solution {
+class Solution 
+{
 public:
     int maximumGain(string s, int x, int y) {
-        stack<char> st1;
-        int ans = 0;
+        // Step 1: Remove higher-value substring first
+        if (x < y)
+        {
+            return remove(s, 'b', 'a', y, x); // remove "ba" first
+        }
+        else
+        {
+            return remove(s, 'a', 'b', x, y); // remove "ab" first
+        }
+    }
 
-        if (x > y) {
-            for (char ch : s) {
-                if (!st1.empty() && st1.top() == 'a' && ch == 'b') {
-                    st1.pop();
-                    ans += x;
-                } else {
-                    st1.push(ch);
-                }
-            }
-            
-            s.clear();
-            while (!st1.empty()) {
-                s += st1.top();
-                st1.pop();
-            }
-            reverse(s.begin(), s.end());
+private:
+    int remove(string& s, char first, char second, int firstPoints, int secondPoints) 
+    {
+        int score = 0;
+        vector<char> stack;
 
-            for (char ch : s) {
-                if (!st1.empty() && st1.top() == 'b' && ch == 'a') {
-                    st1.pop();
-                    ans += y;
-                } else {
-                    st1.push(ch);
-                }
-            }
-        } else {
-            for (char ch : s) {
-                if (!st1.empty() && st1.top() == 'b' && ch == 'a') {
-                    st1.pop();
-                    ans += y;
-                } else {
-                    st1.push(ch);
-                }
-            }
-            s.clear();
-            while (!st1.empty()) {
-                s += st1.top();
-                st1.pop();
-            }
-            reverse(s.begin(), s.end());
-
-            for (char ch : s) {
-                if (!st1.empty() && st1.top() == 'a' && ch == 'b') {
-                    st1.pop();
-                    ans += x;
-                } else {
-                    st1.push(ch);
-                }
+        // Step 2: First pass - remove the higher-value substring
+        for (char c : s) 
+        {
+            if (!stack.empty() && stack.back() == first && c == second) 
+            {
+                stack.pop_back();
+                score += firstPoints;
+            } 
+            else 
+            {
+                stack.push_back(c);
             }
         }
-        return ans;
+
+        // Step 3: Second pass - remove the lower-value substring from remaining string
+        vector<char> stack2;
+        for (char c : stack) 
+        {
+            if (!stack2.empty() && stack2.back() == second && c == first) 
+            {
+                stack2.pop_back();
+                score += secondPoints;
+            } 
+            else 
+            {
+                stack2.push_back(c);
+            }
+        }
+
+        // Step 4: Return total score
+        return score;
     }
 };
