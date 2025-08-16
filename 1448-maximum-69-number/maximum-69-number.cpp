@@ -1,10 +1,7 @@
 class Solution {
 public:
     int maximum69Number (int num) {
-        if(num==9999){
-            return 9999;
-        }
-
+        
         string n=to_string(num);
 
         for(int i=0;i<n.size();i++){
