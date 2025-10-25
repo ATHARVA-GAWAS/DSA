@@ -1,20 +1,30 @@
 class Solution {
 public:
     int totalMoney(int n) {
-        int items  = n / 7;
-        int first  = 28;
-        int last   = 28 + (items - 1) * 7; //Tn = a1 + (n-1)*d
-        
-        int arithmeticSum = items * (first + last) / 2; //Sn = n/2(a1 + an)
-        
-        //Final week remaining days
-        int monday_money = 1 + items;
-        int finalWeek    = 0;
-        
-        for (int day = 1; day <= (n % 7); day++) { //This loop will Never iterate more than 6 ~ O(1)
-            finalWeek += monday_money++;
+        if(n<=7){
+            return n*(n+1)/2;
         }
-        
-        return arithmeticSum + finalWeek;
+
+        int weeks = n / 7;
+        int rem_days = n % 7;
+
+        int cnt = 1;    // Monday start value
+        int x = 1;      // Next week's Monday start
+        int ans = 0;
+
+        while(weeks--){
+            for(int i = 0; i < 7; i++){
+                ans += (cnt + i);
+            }
+            x++;
+            cnt = x;
+        }
+
+        // handle remaining days
+        for(int i = 0; i < rem_days; i++){
+            ans += (cnt + i);
+        }
+
+        return ans;
     }
 };
