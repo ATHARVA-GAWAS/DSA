@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minSubarray(vector<int>& nums, int p) {
-        int n = nums.size();
+         int n = nums.size();
         int sum = 0;
 
         //(a+b)%p = (a%p + b%p) % p
@@ -33,6 +33,5 @@ public:
         }
 
         return result == n ? -1 : result;
-
     }
 };
