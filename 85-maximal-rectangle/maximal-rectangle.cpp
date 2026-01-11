@@ -1,38 +1,46 @@
 class Solution {
+    int histogram(vector<int>& arr){
+        stack<int>st;
+        int maxi=0,n=arr.size();
+
+        for(int i=0;i<n;i++){
+            while(!st.empty() && arr[st.top()]>arr[i]){
+                int curr=arr[st.top()]; 
+                st.pop();
+
+                int nse=i,pse=(st.empty()) ? -1 : st.top();
+
+                maxi=max(maxi,curr*(nse-pse-1));
+            }
+            st.push(i);
+        }
+        while(!st.empty()){
+            int curr=arr[st.top()]; 
+            st.pop();
+
+            int nse=n,pse=(st.empty()) ? -1 : st.top();
+            
+            maxi=max(maxi,curr*(nse-pse-1));
+        }
+        return maxi;
+    }
 public:
     int maximalRectangle(vector<vector<char>>& matrix) {
-        int n=matrix.size(), m=matrix[0].size(), ans=0;
-        vector<int>v(m, 0);
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
+        int n=matrix.size(),m=matrix[0].size(),res=0;
+        vector<int>height(m,0);
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
                 if(matrix[i][j]=='1'){
-                    v[j]++;
-                }
+                    height[j]++;
+                } 
                 else{
-                    v[j]=0;
-                }
+                    height[j]=0;
+                } 
             }
-            stack<int>s;
-            int maxi=0;
-            //for(int j=0; j<m; j++){cout<<v[j]<<" ";}cout<<endl;
-            for(int j=0; j<=m; j++){
-                while(!s.empty() && (j==v.size() || v[j]<=v[s.top()])){
-                    int top=v[s.top()];
-                    s.pop();
-                    int breadth;
-                    if(s.empty()){
-                        breadth=j;
-                    }
-                    else{
-                        breadth=j-1-s.top();
-                    }
-                    maxi=max(maxi, top*breadth);
-                }
-                s.push(j);
-            }
-            ans=max(ans, maxi);
-            //cout<<maxi<<endl;
+
+            res=max(res,histogram(height));
         }
-        return ans;
+        return res;
     }
 };
