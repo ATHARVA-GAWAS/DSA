@@ -1,16 +1,25 @@
 class Solution {
 public:
     int partitionString(string s) {
-        int ans=0;
-        set<int> partition;
+        int n=s.size();
 
-        for(int i=0;i<s.size();i++){
-             if(partition.find(s[i]) != partition.end()){
+        map<char,int> mp;
+
+        int ans=0;
+
+        for(int i=0;i<n;i++){
+            if(mp.find(s[i])!=mp.end()){
+                mp.clear();
+
                 ans++;
-                partition.clear();
+
+                mp[s[i]]++;
             }
-            partition.insert(s[i]);
+            else{
+                mp[s[i]]++;
+            }
         }
+
         return ans+1;
     }
 };
