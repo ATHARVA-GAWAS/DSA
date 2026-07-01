@@ -26,10 +26,13 @@ public:
     int findSf(vector<vector<int>>& dis, int n){
         priority_queue<pair<int,pair<int,int>>> pq;
         vector<vector<bool>> vis (n,vector<bool>(n));
+        
         pq.push({dis[0][0],{0,0}});
+
         vis[0][0] = true;
         vector<pair<int, int>> dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
         int ans = 1e9;
+
         while(!pq.empty()){
             auto [d,cord] = pq.top();
             pq.pop();
